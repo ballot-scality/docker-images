@@ -1,0 +1,20 @@
+FROM centos:7
+MAINTAINER Scality
+
+ARG scaluser
+ARG scalpasswd
+ENV SCALUSER $scaluser
+ENV SCALPASSWD $scalpasswd
+
+# gpgkey=http://${SCALUSER}:${SCALPASSWD}@packages.scality.com/scality.asc\n\
+
+RUN echo -e "[scality-base]\n\
+name=CentOS - Scality Base\n\
+baseurl=http://${SCALUSER}:${SCALPASSWD}@packages.scality.com/stable_lorien/centos/\$releasever/\$basearch/\n\
+gpgcheck=1\n" > /etc/yum.repos.d/scality.repo
+
+RUN rpm --import http://${SCALUSER}:${SCALPASSWD}@packages.scality.com/scality.asc
+
+RUN yum install -y epel-release && \
+	yum install -y scality-sproxyd nginx && \
+	rm -f /etc/yum.repos.d/scality.repo
