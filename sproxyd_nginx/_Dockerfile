@@ -6,8 +6,6 @@ ARG scalpasswd
 ENV SCALUSER $scaluser
 ENV SCALPASSWD $scalpasswd
 
-# gpgkey=http://${SCALUSER}:${SCALPASSWD}@packages.scality.com/scality.asc\n\
-
 RUN echo -e "[scality-base]\n\
 name=CentOS - Scality Base\n\
 baseurl=http://${SCALUSER}:${SCALPASSWD}@packages.scality.com/stable_lorien/centos/\$releasever/\$basearch/\n\
